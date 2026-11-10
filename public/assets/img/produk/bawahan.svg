@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Foto demo Bawahan">
+  <rect width="400" height="500" fill="#ECE9E0"/>
+  <g fill="none" stroke="#1F3A2E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M150 130 H250 L264 350 H214 L200 205 L186 350 H136 Z"/><path d="M150 150 H250"/></g>
+  <text x="200" y="420" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#17231D">Bawahan</text>
+  <text x="200" y="452" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="3" fill="#5B6660">FOTO DEMO</text>
+</svg>

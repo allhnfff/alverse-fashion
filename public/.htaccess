@@ -1,0 +1,8 @@
+# Untuk Apache (misalnya XAMPP): arahkan semua permintaan ke index.php,
+# kecuali file yang benar-benar ada (CSS, JS, gambar).
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L,QSA]
+</IfModule>
+Options -Indexes

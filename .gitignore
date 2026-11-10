@@ -1,0 +1,22 @@
+# Dependency Composer (dipasang ulang dengan: composer install)
+/vendor/
+
+# Konfigurasi rahasia: JANGAN di-commit
+.env
+.env.*
+!.env.example
+!.env.uji.example
+
+# File data Redis lokal (jika redis-server dijalankan dari folder proyek)
+*.rdb
+*.aof
+appendonlydir/
+/redis/data/
+
+# Log & file sementara
+/storage/logs/*.log
+/tests/output/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
