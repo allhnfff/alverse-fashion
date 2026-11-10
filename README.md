@@ -12,7 +12,7 @@ Pengembang: **Hanif** (anggota 2). Layanan data pusat: **Kelompok 6**.
 | Halaman | Fitur |
 |---|---|
 | Beranda (`/`) | Banner geser (3 slide), banner samping, menu Kategori dengan ringkasan harga, kotak cari dengan saran, ikon 6 kategori, 18 produk pertama dengan tombol "Lihat produk lainnya", Lihat cepat (pilih warna/ukuran tanpa pindah halaman), keranjang mini |
-| Katalog (`/katalog`) | Cari nama/kode/warna, urutkan (kode, harga naik/turun, nama), kategori di samping (chip geser di ponsel), **filter rentang harga, ukuran, dan warna**, chip filter aktif yang bisa dihapus satu per satu, 20 produk pertama lalu "Tampilkan produk lainnya", 2/3/5 kolom di 360/768/1280 px |
+| Katalog (`/katalog`) | Cari nama/kode/warna, urutkan (Urutan toko, Harga termurah, Harga termahal, Nama A–Z), kategori di samping (chip geser di ponsel), **filter rentang harga, ukuran, dan warna**, chip filter aktif yang bisa dihapus satu per satu, 20 produk pertama lalu "Tampilkan produk lainnya", 2/3/5 kolom di 360/768/1280 px |
 | Detail produk (`/produk/{id}`) | **Galeri gambar per warna yang bisa digeser** (penanda 1/3 di ponsel, thumbnail di layar lebar), pilihan ukuran dan warna, ukuran habis terkunci otomatis, **stok global bersama diperbarui tiap 5 detik**, spesifikasi, **panduan ukuran (cm)**, tombol Lihat keranjang, bar beli dan lembar pilih variasi di ponsel, produk sekategori |
 | Keranjang (`/keranjang`) | Ubah jumlah dengan − / +, hapus item, cek stok per item, total. Keranjang tidak memotong stok |
 | Checkout (`/checkout`) | Data penerima, pilih **pengiriman reguler (Rp10.000)** atau **pickup di cabang (Rp0)**, pesan error di bawah kolom yang salah, halaman konfirmasi pembayaran simulasi |
