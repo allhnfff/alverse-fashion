@@ -1,5 +1,5 @@
 <?php
-/** @var array $products @var array $quick @var array|null $muslimCheapest @var array $categories @var array $categoryCounts @var int $totalProducts @var array|null $shoeSide */
+/** @var array $products @var array $quick @var array|null $muslimCheapest @var array $categories @var array $categoryCounts @var int $totalProducts @var array|null $promoSlide @var array $sideBanners */
 use App\Controllers\ShopController;
 
 $branchName = (string) config('branch.name');
@@ -10,9 +10,17 @@ $rest = max(0, count($products) - $visible);
 $slides = [
     ['cls' => 's-d', 'href' => '/cabang', 'kicker' => 'Pickup di ' . $branchName, 'title' => 'Ongkir ' . $pickup,
         'text' => 'Pilih pickup saat checkout, ambil setelah status pesanan Siap Diambil.', 'cta' => 'Lihat lokasi dan jam pickup', 'bg' => 'pickup'],
-    ['cls' => 's-t', 'href' => '/cabang#stok-bersama', 'kicker' => 'Satu stok, tujuh cabang', 'title' => 'Stok bersama',
-        'text' => 'Angka stok yang kamu lihat sama dengan di enam website cabang lain.', 'cta' => 'Cara kerja stok bersama', 'bg' => 'stok-bersama'],
 ];
+if ($promoSlide) {
+    $names = array_column($promoSlide['items'], 'name');
+    $lastName = array_pop($names);
+    $nameText = $names ? implode(', ', $names) . (count($names) > 1 ? ',' : '') . ' dan ' . $lastName : (string) $lastName;
+    $slides[] = ['cls' => 's-t', 'href' => '/katalog?kategori=' . $promoSlide['key'], 'kicker' => $promoSlide['label'], 'title' => 'Mulai ' . rupiah($promoSlide['min']),
+        'text' => $promoSlide['count'] . ' model, termasuk ' . $nameText . '.', 'cta' => 'Lihat ' . lower($promoSlide['label']), 'bg' => $promoSlide['key'],
+        // Foto ke-n memakai warna ke-n produknya supaya dua foto tidak terlihat kembar.
+        'pics' => array_map(static fn (array $p, int $n): string => product_image($p, (string) ($p['colors'][$n % max(1, count($p['colors']))]['code'] ?? '')),
+            array_slice($promoSlide['items'], 0, 2), [0, 1])];
+}
 if ($muslimCheapest) {
     $colorNames = array_column($muslimCheapest['colors'], 'label');
     $lastColor = array_pop($colorNames);
@@ -36,9 +44,13 @@ unset($s);
 <div class="hero">
     <section class="car" id="carousel" aria-roledescription="carousel" aria-label="Info utama">
         <?php foreach ($slides as $i => $s): ?>
-            <a class="slide <?= e($s['cls']) ?><?= $s['bgUrl'] ? ' has-bg' : '' ?><?= $i === 0 ? ' is-on' : '' ?>" href="<?= e($s['href']) ?>" role="group" aria-roledescription="slide" aria-label="<?= $i + 1 ?> dari <?= count($slides) ?>">
+            <a class="slide <?= e($s['cls']) ?><?= $s['bgUrl'] ? ' has-bg' : (!empty($s['pics']) ? ' has-pics' : '') ?><?= $i === 0 ? ' is-on' : '' ?>" href="<?= e($s['href']) ?>" role="group" aria-roledescription="slide" aria-label="<?= $i + 1 ?> dari <?= count($slides) ?>">
                 <?php if ($s['bgUrl']): ?>
                     <img class="bgi" src="<?= e($s['bgUrl']) ?>" alt="" width="1600" height="900"<?= $i === 0 ? ' fetchpriority="high"' : ' loading="lazy"' ?>>
+                <?php elseif (!empty($s['pics'])): ?>
+                    <span class="pics" aria-hidden="true">
+                        <?php foreach ($s['pics'] as $src): ?><img src="<?= e($src) ?>" alt="" width="800" height="800"<?= $i === 0 ? '' : ' loading="lazy"' ?>><?php endforeach; ?>
+                    </span>
                 <?php elseif ($s['cls'] === 's-d'): ?>
                     <img class="wm" src="<?= asset('assets/img/logo.svg') ?>" alt="" width="300" height="300">
                 <?php endif; ?>
@@ -57,10 +69,13 @@ unset($s);
         </div>
     </section>
     <div class="side">
-        <a class="sb2 s-t" href="/katalog"><small>Katalog lengkap</small><strong><?= (int) $totalProducts ?> produk, <?= count($categoryCounts) ?> kategori</strong><p>Pakaian, busana muslim, sepatu, dan tas.</p></a>
-        <?php if ($shoeSide): ?>
-            <a class="sb2 s-s" href="/katalog?kategori=sepatu-sandal"><small>Sepatu &amp; Sandal</small><strong><?= (int) $shoeSide['count'] ?> model</strong><p>Mulai <?= rupiah($shoeSide['min']) ?>, dari sneakers sampai loafers.</p></a>
-        <?php else: ?>
+        <?php foreach ($sideBanners as $k => $sb): ?>
+            <a class="sb2 has-img <?= $k === 0 ? 's-t' : 's-s' ?>" href="/katalog?kategori=<?= e($sb['key']) ?>">
+                <span class="sb-tx"><small><?= e($sb['label']) ?></small><strong>Mulai <?= rupiah($sb['min']) ?></strong><p><?= (int) $sb['count'] ?> model</p></span>
+                <img src="<?= e(product_image($sb['items'][0])) ?>" alt="" width="800" height="800" loading="lazy">
+            </a>
+        <?php endforeach; ?>
+        <?php if (!$sideBanners): ?>
             <a class="sb2 s-s" href="/cabang"><small>Pengiriman</small><strong>Reguler <?= $reguler ?></strong><p>Per pesanan, berapa pun jumlah barangnya.</p></a>
         <?php endif; ?>
     </div>

@@ -70,14 +70,16 @@ return [
         'role'          => 'admin_cabang',
     ],
 
+    // Tautan website cabang. Selama BRANCH_URL_* di .env masih kosong, dipakai tautan SEMENTARA
+    // berdomain .example (domain khusus contoh, tidak pernah aktif). Isi .env saat tautan asli ada.
     'branch_urls' => [
-        'dramaga'   => $env('BRANCH_URL_DRAMAGA', ''),
-        'bogor'     => $env('BRANCH_URL_BOGOR', ''),
-        'bandung'   => $env('BRANCH_URL_BANDUNG', ''),
-        'depok'     => $env('BRANCH_URL_DEPOK', ''),
-        'jaksel'    => $env('BRANCH_URL_JAKSEL', ''),
-        'bekasi'    => $env('BRANCH_URL_BEKASI', ''),
-        'tangerang' => $env('BRANCH_URL_TANGERANG', ''),
+        'dramaga'   => $env('BRANCH_URL_DRAMAGA', '') ?: 'https://alverse-dramaga.example/',
+        'bogor'     => $env('BRANCH_URL_BOGOR', '') ?: 'https://alverse-bogor.example/',
+        'bandung'   => $env('BRANCH_URL_BANDUNG', '') ?: 'https://alverse-bandung.example/',
+        'depok'     => $env('BRANCH_URL_DEPOK', '') ?: 'https://alverse-depok.example/',
+        'jaksel'    => $env('BRANCH_URL_JAKSEL', '') ?: 'https://alverse-jaksel.example/',
+        'bekasi'    => $env('BRANCH_URL_BEKASI', '') ?: 'https://alverse-bekasi.example/',
+        'tangerang' => $env('BRANCH_URL_TANGERANG', '') ?: 'https://alverse-tangerang.example/',
     ],
 
     // Mode preview lokal (misalnya Mobile Preview di dalam iframe). Bawaan MATI.

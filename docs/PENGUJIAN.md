@@ -93,7 +93,7 @@ Buka DevTools (F12) → tab Elements, lalu di halaman produk ubah input jumlah m
 1. Buka halaman produk P037.
 2. Hentikan Redis (cara tergantung instalasi, lihat `docs/INSTALASI.md`).
 3. Dalam ±5 detik halaman menampilkan **"Tidak dapat memperbarui stok"** beserta angka terakhir yang diketahui. Halaman **tidak** menampilkan "Stok 0".
-4. Muat ulang halaman, maka muncul halaman "Layanan data tidak tersedia" (HTTP 503). Coba checkout: tidak ada pesanan yang dibuat dan tidak ada pesan sukses.
+4. Muat ulang halaman, maka muncul halaman "Sedang ada gangguan" (HTTP 503). Coba checkout: tidak ada pesanan yang dibuat dan tidak ada pesan sukses.
 5. Nyalakan Redis lagi, dan angka kembali muncul.
 
 ### C8. Data tetap setelah restart (uji 12)
@@ -222,7 +222,7 @@ Database 0 (data demo) tidak tersentuh: sidik isi `83b1f15857a52403` sama sebelu
 
 **C7 — gangguan Redis**
 - *Server:* website sementara `localhost:8513` sengaja diarahkan ke Redis yang tidak ada (port 1). Hasilnya:
-  - `/`, `/katalog`, `/produk/P037`, `/keranjang` → **503** "Layanan data tidak tersedia".
+  - `/`, `/katalog`, `/produk/P037`, `/keranjang` → **503** "Sedang ada gangguan" (sebelum F12: "Layanan data tidak tersedia").
   - `/api/stok/P037` → 503 `{"ok":false,"message":"Tidak dapat memperbarui stok"}`.
   - POST `/checkout/konfirmasi` → 503, tanpa pesan sukses.
   - `/cabang` dan `/admin/login` tetap 200 karena tidak butuh data.
@@ -564,3 +564,19 @@ Database 0 (data demo) tidak tersentuh: sidik isi `83b1f15857a52403` sama sebelu
 - **Katalog:** urutan bawaan diberi nama "Urutan toko", bukan "Sesuai kode produk". Nama seperti "Terpopuler" atau "Terbaru" tidak dipakai karena urutannya memang bukan itu.
 - **Detail produk:** di bawah judul hanya tertulis kategori. Kode produk tetap ada di Spesifikasi.
 - Dicek di localhost:8501: /cabang, /produk/P025, dan /katalog tampil (200) dengan teks baru.
+
+### F12. Teks dan banner yang terasa buatan AI, 12 November 2026
+
+**Perubahan tampilan** (tanpa mengubah data, Redis, atau alur transaksi):
+- **Banner geser ke-2:** slide "Stok bersama" diganti promo kategori Atasan: "Mulai Rp129.000", "7 model, termasuk Kaus Basic, Oversized Tee, dan Polo Shirt.", dengan dua foto produk. Jumlah, harga, nama, dan foto dihitung dari data.
+- **Banner samping:** kotak "42 produk, 6 kategori" diganti banner Outerwear. Kedua banner samping (Outerwear, Sepatu & Sandal) kini berisi harga termurah, jumlah model, dan foto produk termurahnya.
+- **Info Cabang:** bagian "Cara kerja stok bersama" dihapus. Penjelasan stok bersama cukup ada di README dan presentasi.
+- **Daftar cabang:** "tautan belum ada" diganti tombol "Buka website" ke tautan sementara `https://alverse-<cabang>.example/`. Domain `.example` khusus contoh dan tidak pernah aktif. Tautan asli cukup diisi di `BRANCH_URL_*` pada `.env`.
+- **Halaman 503:** judul "Sedang ada gangguan", isi "Halaman sedang tidak bisa dimuat. Coba lagi sebentar lagi." Detail teknis hanya muncul bila `APP_DEBUG=true`.
+- **Detail produk:** keterangan "Gambar dibuat dengan AI" di bawah galeri dihapus karena sudah ada di footer. Alt gambar tetap memuat "(gambar AI)".
+
+**Tes lengkap** (db 14, dibersihkan; sidik db 0 tetap `83b1f15857a52403`):
+- run-tests 15, http-e2e 11, C10 4.
+- Browser 51 pemeriksaan: klik 9, browser 6, beranda 13, foto 10, wireframe 12, gulir 1.
+- Tes foto disesuaikan: banner berfoto latar harus termuat dengan lapisan gelap, banner promo harus memuat 2 foto produk.
+- Semuanya lulus. Tampilan dicek di 1440, 1024, dan 390 px, tanpa geser ke samping.

@@ -52,8 +52,21 @@ final class ShopController extends Controller
         $muslim = array_values(array_filter($products, static fn ($p) => $p['category'] === 'busana-muslim'));
         usort($muslim, static fn ($a, $b) => $a['price'] <=> $b['price']);
 
-        // Banner samping kedua: jumlah model dan harga termurah Sepatu & Sandal, dihitung dari data.
-        $shoePrices = array_column(array_filter($products, static fn ($p) => $p['category'] === 'sepatu-sandal'), 'price');
+        // Promo per kategori untuk banner (jumlah model, harga termurah, foto), dihitung dari data.
+        $promo = static function (string $key) use ($products): ?array {
+            $items = array_values(array_filter($products, static fn ($p) => $p['category'] === $key));
+            if (!$items) {
+                return null;
+            }
+            usort($items, static fn ($a, $b) => [$a['price'], $a['product_id']] <=> [$b['price'], $b['product_id']]);
+            return [
+                'key'   => $key,
+                'label' => MasterCatalog::categoryLabel($key),
+                'count' => count($items),
+                'min'   => (int) $items[0]['price'],
+                'items' => array_slice($items, 0, 3),
+            ];
+        };
 
         // Data untuk jendela "Lihat cepat": hanya data master yang sudah tampil di halaman.
         $quick = array_map(static fn (array $p): array => [
@@ -72,7 +85,8 @@ final class ShopController extends Controller
             'products'       => $mixed,
             'quick'          => $quick,
             'muslimCheapest' => $muslim[0] ?? null,
-            'shoeSide'       => $shoePrices ? ['count' => count($shoePrices), 'min' => (int) min($shoePrices)] : null,
+            'promoSlide'     => $promo('atasan'),
+            'sideBanners'    => array_values(array_filter([$promo('outerwear'), $promo('sepatu-sandal')])),
             'categoryCounts' => $counts,
             'totalProducts'  => count($products),
             'cartJustAdded'  => $this->query('keranjang') === 'baru',

@@ -50,7 +50,7 @@ $branchName = (string) config('branch.name');
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-        <figcaption><?= $isAi ? 'Gambar dibuat dengan AI, bukan foto produk asli.' : 'Gambar ilustrasi kategori, belum foto produk asli.' ?></figcaption>
+        <?php if (!$isAi): ?><figcaption>Gambar ilustrasi kategori, belum foto produk asli.</figcaption><?php endif; ?>
     </figure>
 
     <div class="pd-info">

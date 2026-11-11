@@ -24,8 +24,7 @@ $pickup = rupiah((int) config('shipping.pickup'));
     </section>
 </div>
 
-<div class="two-col">
-    <section class="card">
+<section class="card">
         <h2 class="card-title">Cara mengambil pesanan di <?= e($branch['name']) ?></h2>
         <ol class="howto">
             <li>Pilih <strong>Pickup</strong> saat checkout. Ongkirnya <?= $pickup ?>, dan kode pickup 6 angka langsung muncul di halaman pesananmu.</li>
@@ -33,18 +32,7 @@ $pickup = rupiah((int) config('shipping.pickup'));
             <li>Datang ke lokasi pickup dan tunjukkan kodenya. Setelah petugas mencocokkan kode, status menjadi <?php $status = 'selesai'; include __DIR__ . '/../partials/status-badge.php'; ?>.</li>
         </ol>
         <a class="btn btn-primary" href="/katalog">Mulai belanja</a>
-    </section>
-
-    <section class="card" id="stok-bersama">
-        <h2 class="card-title">Cara kerja stok bersama</h2>
-        <ul class="plain-list">
-            <li>Ketujuh website Alverse memakai <strong>satu stok</strong> untuk tiap produk, ukuran, dan warna. Tidak ada stok khusus per cabang.</li>
-            <li>Pembelian di website mana pun memotong stok itu satu kali, lalu semua website menampilkan angka yang sama.</li>
-            <li>Stok di halaman produk diperbarui tiap 5 detik, jadi bisa terlambat beberapa detik. Checkout selalu memeriksa angka terbaru.</li>
-            <li>Stok bersama tidak berarti barang sudah ada di <?= e($branch['name']) ?>. Karena itu pickup baru bisa setelah status Siap Diambil.</li>
-        </ul>
-    </section>
-</div>
+</section>
 
 <section class="panel" id="cabang-lain" aria-labelledby="cab-h">
     <div class="panel-h"><h2 id="cab-h">Tujuh website cabang Alverse</h2></div>
@@ -58,8 +46,6 @@ $pickup = rupiah((int) config('shipping.pickup'));
                     <span class="small b-here">kamu di sini</span>
                 <?php elseif ($b['url'] !== ''): ?>
                     <a class="btn btn-ghost btn-sm" href="<?= e($b['url']) ?>" rel="noopener">Buka website</a>
-                <?php else: ?>
-                    <span class="small muted">tautan belum ada</span>
                 <?php endif; ?>
             </li>
         <?php endforeach; ?>

@@ -107,12 +107,11 @@ try {
     $renderError($e->status, 'Terjadi kendala', $e->getMessage(), $isApi);
 } catch (DataServiceUnavailable $e) {
     error_log('[alverse] layanan data: ' . $e->getMessage());
-    $msg = 'Layanan data sedang tidak dapat dihubungi, jadi halaman ini tidak dapat menampilkan data terbaru. '
-        . 'Tidak ada perubahan yang disimpan dari permintaan ini.';
+    $msg = 'Halaman sedang tidak bisa dimuat. Coba lagi sebentar lagi.';
     if (App::config('app.debug')) {
         $msg .= ' Detail: ' . $e->getMessage();
     }
-    $renderError(503, 'Layanan data tidak tersedia', $msg, $isApi);
+    $renderError(503, 'Sedang ada gangguan', $msg, $isApi);
 } catch (\Throwable $e) {
     error_log('[alverse] ' . $e::class . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
     $msg = App::config('app.debug')

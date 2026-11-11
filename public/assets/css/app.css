@@ -319,6 +319,18 @@ legend { padding: 0; }
 .slide.has-bg:hover .cta { background: #fff; color: var(--green); }
 @media (max-width: 639px) { .slide.has-bg::before { background: linear-gradient(90deg, rgba(16, 32, 26, .9) 0%, rgba(16, 32, 26, .78) 70%, rgba(16, 32, 26, .55) 100%); } }
 @media (min-width: 640px) { .slide { padding: 28px 72px 44px 40px; } }
+/* Slide promo tanpa foto latar: foto produk di kanan. Di ponsel disembunyikan supaya teks tetap lega. */
+.slide .pics { display: none; }
+.slide .pics img { width: 140px; height: 140px; object-fit: cover; border-radius: var(--r); background: var(--cream); }
+@media (min-width: 640px) {
+  .slide.has-pics { padding-right: 230px; }
+  .slide .pics { position: absolute; right: 64px; top: 50%; transform: translateY(-50%); display: flex; gap: 10px; }
+  .slide .pics img + img { display: none; }
+}
+@media (min-width: 1200px) {
+  .slide.has-pics { padding-right: 380px; }
+  .slide .pics img + img { display: block; }
+}
 .arr { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 40px; height: 56px; border: 0; background: rgba(23, 35, 29, .35); color: #fff; display: inline-flex; align-items: center; justify-content: center; }
 .arr:hover { background: rgba(23, 35, 29, .6); }
 .arr.l { left: 0; border-radius: 0 var(--r) var(--r) 0; }
@@ -333,6 +345,9 @@ legend { padding: 0; }
 .sb2 strong { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.1; }
 .sb2 p { font-size: 13px; margin: 0; }
 .sb2:hover { box-shadow: inset 0 0 0 2px var(--green); color: var(--ink); }
+.sb2.has-img { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding-right: 12px; }
+.sb2 .sb-tx { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.sb2.has-img img { width: 96px; height: 96px; flex: none; object-fit: cover; border-radius: var(--r); background: var(--cream); }
 
 .svc5 { list-style: none; margin: 8px 0 0; padding: 14px 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; background: var(--surface); border-radius: var(--r); }
 .svc5 li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 4px; font-size: 13px; line-height: 1.3; }
