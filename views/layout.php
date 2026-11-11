@@ -183,7 +183,7 @@ foreach ((array) config('branches') as $id => $b) {
         <span>Website cabang lain:
             <?php foreach ($otherBranches as $i => $b): ?><?= $i ? ' · ' : '' ?><?php if ($b['url'] !== ''): ?><a href="<?= e($b['url']) ?>" rel="noopener"><?= e($b['name']) ?></a><?php else: ?><?= e($b['name']) ?><?php endif; ?><?php endforeach; ?>
         </span>
-        <span>Gambar produk dibuat dengan AI, bukan foto asli. Angka stok dan info cabang masih simulasi.</span>
+        <span>© <?= date('Y') ?> Alverse <?= e($branchName) ?></span>
     </div>
 </footer>
 

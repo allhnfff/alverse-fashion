@@ -573,7 +573,8 @@ Database 0 (data demo) tidak tersentuh: sidik isi `83b1f15857a52403` sama sebelu
 - **Info Cabang:** bagian "Cara kerja stok bersama" dihapus. Penjelasan stok bersama cukup ada di README dan presentasi.
 - **Daftar cabang:** "tautan belum ada" diganti tombol "Buka website" ke tautan sementara `https://alverse-<cabang>.example/`. Domain `.example` khusus contoh dan tidak pernah aktif. Tautan asli cukup diisi di `BRANCH_URL_*` pada `.env`.
 - **Halaman 503:** judul "Sedang ada gangguan", isi "Halaman sedang tidak bisa dimuat. Coba lagi sebentar lagi." Detail teknis hanya muncul bila `APP_DEBUG=true`.
-- **Detail produk:** keterangan "Gambar dibuat dengan AI" di bawah galeri dihapus karena sudah ada di footer. Alt gambar tetap memuat "(gambar AI)".
+- **Detail produk dan Lihat cepat:** keterangan "Gambar dibuat dengan AI" di bawah gambar dihapus. Alt gambar tetap memuat "(gambar AI)". Keterangan hanya muncul untuk gambar ilustrasi pengganti.
+- **Footer:** "Gambar produk dibuat dengan AI, bukan foto asli. Angka stok dan info cabang masih simulasi." diganti "© [tahun] Alverse Bogor Kota". Info cabang tetap bertanda demo di halaman Info Cabang.
 
 **Tes lengkap** (db 14, dibersihkan; sidik db 0 tetap `83b1f15857a52403`):
 - run-tests 15, http-e2e 11, C10 4.

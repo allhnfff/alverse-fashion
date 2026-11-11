@@ -602,7 +602,9 @@
             var img = $('qv-img');
             if (img.getAttribute('src') !== src) img.src = src;
             img.alt = label + (ai ? ' (gambar AI)' : ' (gambar ilustrasi)');
-            $('qv-note').textContent = ai ? 'Gambar dibuat dengan AI, bukan foto produk asli.' : 'Gambar ilustrasi kategori, belum foto produk asli.';
+            // Seperti halaman produk: keterangan hanya untuk gambar ilustrasi pengganti.
+            $('qv-note').textContent = ai ? '' : 'Gambar ilustrasi kategori, belum foto produk asli.';
+            $('qv-note').hidden = ai;
         }
         function render() {
             var p = current, size = picked('size'), color = picked('color');

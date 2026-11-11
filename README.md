@@ -186,7 +186,7 @@ Ringkasnya: isi `CENTRAL_BASE_URL` + `CENTRAL_API_KEY` di `.env`, isi endpoint d
 
 - Kode, nama, kategori, ukuran, warna, dan harga 42 produk diambil dari **Daftar Harga Alverse** (harga simulasi).
 - **Deskripsi, foto, angka stok, alamat, kontak, dan jam cabang adalah DEMO** dan diberi label di tampilan. Penggantinya adalah data resmi dari pusat.
-- **Gambar produk dan banner dibuat dengan AI** (`public/assets/img/produk/foto/`, `public/assets/img/banner/`), satu gambar per warna. Tampilan memberi label "gambar AI".
+- **Gambar produk dan banner dibuat dengan AI** (`public/assets/img/produk/foto/`, `public/assets/img/banner/`), satu gambar per warna. Hal ini ditulis di README dan di teks alternatif tiap gambar ("(gambar AI)"), tidak di tampilan toko.
 - Deskripsi demo ("[Deskripsi demo] …") tidak ditampilkan karena hanya mengulang spesifikasi. Bagian deskripsi muncul otomatis bila pusat mengirim deskripsi asli.
 - **Panduan ukuran** (`config/size-guide.php`) memakai ukuran standar umum toko pakaian di Indonesia karena daftar harga belum memuat ukuran cm. Ganti angka di file itu bila pusat mengirim ukuran resmi.
 - Ukuran sepatu di data tertulis "EUR 40". Di halaman pembeli ditulis "40" seperti di marketplace (`size_text()`); data aslinya tidak berubah.

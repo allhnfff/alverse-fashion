@@ -113,7 +113,7 @@ unset($s);
 </section>
 
 <dialog class="qv" id="quick-view" aria-labelledby="qv-h">
-    <div class="g"><img id="qv-img" src="" alt="" width="380" height="380"><p id="qv-note">Gambar dibuat dengan AI, bukan foto produk asli.</p></div>
+    <div class="g"><img id="qv-img" src="" alt="" width="380" height="380"><p id="qv-note" hidden></p></div>
     <form class="i" action="/keranjang/tambah" method="post" id="qv-form">
         <?= csrf_field() ?>
         <input type="hidden" name="product_id" id="qv-pid" value="">
